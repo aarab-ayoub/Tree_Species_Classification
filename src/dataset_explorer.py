@@ -1,14 +1,14 @@
 """
 DATASET_EXPLORER.PY - Core Data Handling Module
 ===============================================
-🎯 PURPOSE: Load, analyze, and explore your tree point cloud dataset
+ PURPOSE: Load, analyze, and explore your tree point cloud dataset
 🔧 MAIN FUNCTIONS:
    - load_point_cloud(): Load .pts/.xyz/.txt files
    - show_dataset_statistics(): Show train/test split info
    - create_dataset_loader(): Batch load files for ML pipeline
    - SimplePointCloud: Point cloud data structure
 
-📊 USAGE: Called by main.py and other scripts for data operations
+ USAGE: Called by main.py and other scripts for data operations
 """
 
 import numpy as np
@@ -104,7 +104,7 @@ def get_dataset_info(base_path="./"):
     test_path = Path(base_path) / "test"
     
     if not train_path.exists() or not test_path.exists():
-        print("❌ Train/test folders not found! Please run organize_dataset.py first.")
+        print(" Train/test folders not found! Please run organize_dataset.py first.")
         return None, None
     
     train_info = {}
@@ -143,7 +143,7 @@ def visualize_dataset_samples(base_path="./", samples_per_species=2):
     if train_info is None:
         return
     
-    print("🌳 Dataset Sample Visualization")
+    print(" Dataset Sample Visualization")
     print("=" * 50)
     
     for species in sorted(train_info.keys()):
@@ -154,7 +154,7 @@ def visualize_dataset_samples(base_path="./", samples_per_species=2):
         
         # Show train samples
         train_files = train_info[species]['files'][:samples_per_species]
-        print(f"📚 Train samples ({len(train_info[species]['files'])} total):")
+        print(f" Train samples ({len(train_info[species]['files'])} total):")
         
         for i, filename in enumerate(train_files):
             file_path = train_path / filename
@@ -162,7 +162,7 @@ def visualize_dataset_samples(base_path="./", samples_per_species=2):
             
             pcd = load_point_cloud(file_path)
             if pcd is not None:
-                print(f"     ✅ {len(pcd.points):,} points")
+                print(f"      {len(pcd.points):,} points")
                 
                 # Downsample for visualization
                 if len(pcd.points) > 20000:
@@ -182,7 +182,7 @@ def visualize_dataset_samples(base_path="./", samples_per_species=2):
         
         # Show test samples
         test_files = test_info[species]['files'][:samples_per_species]
-        print(f"📖 Test samples ({len(test_info[species]['files'])} total):")
+        print(f" Test samples ({len(test_info[species]['files'])} total):")
         
         for i, filename in enumerate(test_files):
             file_path = test_path / filename
@@ -190,7 +190,7 @@ def visualize_dataset_samples(base_path="./", samples_per_species=2):
             
             pcd = load_point_cloud(file_path)
             if pcd is not None:
-                print(f"     ✅ {len(pcd.points):,} points")
+                print(f"      {len(pcd.points):,} points")
 
 def create_dataset_loader(base_path="./"):
     """
@@ -213,7 +213,7 @@ def create_dataset_loader(base_path="./"):
         split_path = Path(base_path) / split
         
         if not split_path.exists():
-            print(f"❌ {split} folder not found!")
+            print(f" {split} folder not found!")
             return results
         
         species_folders = [species] if species else [f.name for f in split_path.iterdir() if f.is_dir()]
@@ -233,9 +233,9 @@ def create_dataset_loader(base_path="./"):
                 pcd = load_point_cloud(file_path)
                 if pcd is not None:
                     results.append((str(file_path), species_name, pcd))
-                    print(f"  ✅ {file_path.name}: {len(pcd.points):,} points")
+                    print(f"   {file_path.name}: {len(pcd.points):,} points")
                 else:
-                    print(f"  ❌ Failed: {file_path.name}")
+                    print(f"   Failed: {file_path.name}")
         
         return results
     
@@ -250,7 +250,7 @@ def show_dataset_statistics(base_path="./"):
     if train_info is None:
         return
     
-    print("📊 Dataset Statistics")
+    print(" Dataset Statistics")
     print("=" * 60)
     
     print(f"{'Species':<15} {'Train':<8} {'Test':<8} {'Total':<8} {'Formats':<15}")
@@ -279,12 +279,12 @@ def show_dataset_statistics(base_path="./"):
     
     if total_train + total_test > 0:
         test_percentage = (total_test / (total_train + total_test)) * 100
-        print(f"\n📈 Split ratio: {100-test_percentage:.1f}% train, {test_percentage:.1f}% test")
-        print(f"🗂️  Total files: {total_train + total_test:,}")
-        print(f"🌳 Species count: {len(train_info)}")
+        print(f"\n Split ratio: {100-test_percentage:.1f}% train, {test_percentage:.1f}% test")
+        print(f"  Total files: {total_train + total_test:,}")
+        print(f" Species count: {len(train_info)}")
 
 if __name__ == "__main__":
-    print("🌳 Tree Species Dataset Explorer")
+    print(" Tree Species Dataset Explorer")
     print("=" * 50)
     
     # Show dataset statistics
@@ -309,12 +309,12 @@ visualize_dataset_samples(samples_per_species=1)
 """)
     
     # Create and demonstrate the loader
-    print(f"\n📖 Demonstration - Loading Sample Data:")
+    print(f"\n Demonstration - Loading Sample Data:")
     loader = create_dataset_loader()
     
     # Load a few samples from each species
     sample_data = loader(split="train", max_files=2)
-    print(f"\n✅ Loaded {len(sample_data)} sample files successfully!")
+    print(f"\n Loaded {len(sample_data)} sample files successfully!")
     
-    print(f"\n🎯 Your dataset is ready for machine learning!")
+    print(f"\n Your dataset is ready for machine learning!")
     print(f"   Next steps: Feature extraction (LBP + FPFH) and SVM classification")
