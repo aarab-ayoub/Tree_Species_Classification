@@ -17,15 +17,15 @@ from dataset_explorer import show_dataset_statistics, create_dataset_loader
 
 def main():
     """Main function for the tree species classification project"""
-    print("🌳 Tree Species Classification Project")
+    print(" Tree Species Classification Project")
     print("Course: Traitement des données multimédia")
     print("=" * 60)
     
     # Show dataset overview
     show_dataset_statistics()
     
-    print(f"\n📋 Project Status: Data Loading & Visualization ✅ COMPLETE")
-    print(f"📋 Next Phase: Feature Extraction & Classification")
+    print(f"\n Project Status: Data Loading & Visualization ✅ COMPLETE")
+    print(f" Next Phase: Feature Extraction & Classification")
     
     # TODO: Add feature extraction and classification here
     
