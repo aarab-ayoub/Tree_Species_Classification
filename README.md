@@ -6,27 +6,43 @@
 
 ## Quick Start
 ```bash
-python main.py                    # Show dataset overview
-python part1_advanced.py          # Visualize point clouds
+python main.py                              # Basic dataset info
+jupyter notebook notebooks/data_visualization.ipynb  # Data exploration
 ```
 
-## Python Files
+## Project Progress
 
-| File | Purpose | When to Use |
-|------|---------|-------------|
-| `main.py` | 🎯 **Main entry point** | Start here! |
-| `src/dataset_explorer.py` | 📊 **Data loading & stats** | Import for ML pipeline |
-| `part1_advanced.py` | 🔍 **Visualization tool** | Explore individual point clouds |
+### Phase 1: Data Foundation ✓ COMPLETE
+- [x] Dataset download and organization
+- [x] Train/test split (per teacher's test.csv)
+- [x] Basic data loading functions
 
-##  Next Steps
-1. Create `src/feature_extraction.py` (LBP + FPFH)
-2. Create `src/classification.py` (RBF SVM)
-3. Handle class imbalance in evaluation
+### Phase 2: Data Visualization ← CURRENT PHASE
+- [x] Jupyter notebook for exploration
+- [ ] Understand data characteristics
+- [ ] Identify visualization patterns
+
+### Phase 3: Feature Extraction (NEXT)
+- [ ] LBP (Local Binary Patterns) - 2D descriptors
+- [ ] FPFH (Fast Point Feature Histograms) - 3D descriptors
+
+### Phase 4: Classification (FINAL)
+- [ ] RBF SVM implementation
+- [ ] Handle class imbalance (Oak: 22 vs Douglas Fir: 183)
+- [ ] F1-score evaluation
+
+## Files Structure
+
+| File | Purpose |
+|------|---------|
+| `main.py` | Simple entry point |
+| `src/simple_loader.py` | Basic point cloud loading |
+| `notebooks/data_visualization.ipynb` | Data exploration |
 
 ## Dataset Info
 - **Train**: 557 files (80.6%)
-- **Test**: 134 files (19.4%) 
-- **Imbalance**: Oak(22) vs Douglas Fir(183) - 8x difference!
+- **Test**: 134 files (19.4%)
+- **Class Imbalance**: Largest class 8x bigger than smallest
 
 ---
-*Clean, focused, ready for ML implementation* 🚀
+*Focus: Simple, clean, step-by-step implementation*
