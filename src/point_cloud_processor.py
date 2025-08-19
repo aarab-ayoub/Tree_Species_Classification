@@ -7,14 +7,24 @@ def load_point_cloud(file_path):
     try:
         file_path_str = str(file_path)
         
-        pcd = o3d.io.read_point_cloud(file_path_str)        
+        pcd = o3d.io.read_point_cloud(file_path_str)
         # A simple check to see if any points were loaded.
         if not pcd.has_points():
             print(f"Warning: No points found in file {file_path.name}. Trying NumPy fallback.")
-            # Fallback for formats Open3D might struggle with, like some .txt files
-            points = np.loadtxt(file_path_str)
+            data = np.loadtxt(file_path_str)
+            if data.ndim == 1:
+                data = data.reshape(1, -1)
+
             pcd = o3d.geometry.PointCloud()
-            pcd.points = o3d.utility.Vector3dVector(points[:, :3])
+            pcd.points = o3d.utility.Vector3dVector(data[:, :3])
+
+            if data.shape[1] >= 6:
+                rgb = data[:, 3:6].astype(np.float64)
+                if rgb.max() > 1.0:
+                    rgb = rgb / 255.0
+                rgb = np.clip(rgb, 0.0, 1.0)
+                pcd.colors = o3d.utility.Vector3dVector(rgb)
+
             if not pcd.has_points():
                 return None
         
