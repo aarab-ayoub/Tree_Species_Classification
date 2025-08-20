@@ -48,6 +48,7 @@ Thumbs.db
 train/
 test/
 data/test.csv
+data/multi_view_images/
 archive/
 *.zip
 *.rar
