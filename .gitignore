@@ -59,6 +59,11 @@ models/*.pkl
 models/*.joblib
 models/*.h5
 
+
+notebooks/*.pt
+notebooks/*.pth
+notebooks/*.joblib
+
 # Results and logs
 results/*.png
 results/*.jpg
