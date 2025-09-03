@@ -70,6 +70,8 @@ results/*.jpg
 results/*.csv
 *.log
 
+features/
+
 # Notebooks checkpoints
 .ipynb_checkpoints/
 
