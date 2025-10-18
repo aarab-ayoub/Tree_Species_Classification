@@ -48,32 +48,17 @@ def visualize_point_cloud(pcd, title="Point Cloud Visualization"):
 # --- Feature Extraction Function (Your Next Step) ---
 
 def extract_fpfh_features(pcd, voxel_size=0.1):
-    """
-    Calculates a single global feature descriptor for a point cloud using FPFH.
-    
-    Returns: A 1D NumPy array representing the aggregated features of the tree.
-    """
-    # 1. Downsample the point cloud. FPFH is computationally expensive.
-    #    A voxel grid creates a uniform density, which is good for feature descriptors.
+   
     pcd_down = pcd.voxel_down_sample(voxel_size)
-
-    # 2. Estimate normals. FPFH relies on the normals of the points.
-    #    The search radius determines which neighbors are used to calculate the normal.
     radius_normal = voxel_size * 2
     pcd_down.estimate_normals(
         o3d.geometry.KDTreeSearchParamHybrid(radius=radius_normal, max_nn=30))
-
-    # 3. Compute FPFH features.
-    #    The search radius for FPFH should be larger than the normal estimation radius.
+    
     radius_feature = voxel_size * 5
     pcd_fpfh = o3d.pipelines.registration.compute_fpfh_feature(
         pcd_down,
         o3d.geometry.KDTreeSearchParamHybrid(radius=radius_feature, max_nn=100))
 
-    # 4. Aggregate features. FPFH gives a feature vector for EACH point.
-    #    For classifying the whole tree, we need one single vector.
-    #    A common approach is to take the mean of all point features.
-    #    The .T (transpose) is needed because of the shape Open3D returns.
     aggregated_features = np.mean(pcd_fpfh.data.T, axis=0)
     
     return aggregated_features
